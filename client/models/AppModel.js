@@ -13,27 +13,17 @@ var AppModel = Backbone.Model.extend({
     getting called from the window (unless we override it, as we do here). */
     //console.log("before play", this.get('currentSong').get('url'));
 
-    // params.library.on('playAttempt', function(song){
-    //   if(!this.get('currentSong').get('url')){
-    //     song.play();
-    //   } else {
-    //     song.enqueue();
-    //   }
-    // }, this);
-
     params.library.on('play', function(song){
       this.set('currentSong', song);
-      //console.log("during play", this.get('currentSong').get('url'));
-    }, this);
+    },this);
 
     params.library.on('enqueue', function(song){
       this.get('songQueue').add(song);
-      //console.log(this.get('songQueue'));
     },this);
 
-    this.get('songQueue').on('playFirst', function(song){
+    this.get('songQueue').on('playFirst', function(songQueue){
       if(!this.get('currentSong').get('url')){
-        console.log(song);
+        this.set('currentSong', songQueue.at(0)); //gets the first song on the queue
       }
     },this);
   }
