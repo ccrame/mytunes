@@ -17,9 +17,10 @@ var AppModel = Backbone.Model.extend({
       this.set('currentSong', song);
     }, this);
 
-    // params.library.on('enqueue' function(song){
-    //   this.set('songQueue',song);
-    // },this);
+    params.library.on('enqueue', function(song){
+      this.get('songQueue').add(song);
+      //console.log(this.get('songQueue'));
+    },this);
   }
 
 });
